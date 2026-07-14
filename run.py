@@ -292,8 +292,10 @@ def spam(nomor, proxies=None, timeout=10):
         try:
             if method == "json":
                 resp = session.post(url, headers=headers, json=final_payload, timeout=timeout)
+                print(resp.text[:500])
             else:  # form-data
                 resp = session.post(url, headers=headers, data=final_payload, timeout=timeout)
+                print(resp.text[:500])
 
             if resp and (resp.status_code in [200, 201, 202] or check_success(resp, keywords)):
                 stats["success"] += 1
@@ -348,7 +350,6 @@ def main():
     for cycle in track(range(args.cycles), description="Mengirim OTP..."):
         console.print(f"[dim]Siklus {cycle+1}/{args.cycles}[/]")
         stats = spam(nomor, timeout=args.timeout)
-        print(stats.text[:5000])
         total_sukses += stats["success"]
         total_gagal += stats["fail"]
 
