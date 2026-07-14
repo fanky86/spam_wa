@@ -347,7 +347,8 @@ def main():
 
     for cycle in track(range(args.cycles), description="Mengirim OTP..."):
         console.print(f"[dim]Siklus {cycle+1}/{args.cycles}[/]")
-        stats = spam(nomor, proxies=proxies, timeout=args.timeout)
+        stats = spam(nomor, timeout=args.timeout)
+        print(stats.text[:5000])
         total_sukses += stats["success"]
         total_gagal += stats["fail"]
 
